@@ -34,7 +34,7 @@ pipeline {
             steps {
                 withMavenPlus(timestamps: true, mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: '67aaee2b-ca74-4ae1-8eb9-c8f16eb5e534')
                 {
-                    sh "mvn -U clean install -Dprepare.revision
+                    sh "mvn -U clean install -Dprepare.revision"
                 }
             }
         }
