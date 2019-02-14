@@ -1,8 +1,8 @@
 @Library('jenkins-shared-libraries') _
 
-def REPO_NAME  = 'strongbox/strongbox-parent'
 def SERVER_ID  = 'carlspring-oss-snapshots'
-def SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-snapshots/'
+def DEPLOY_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-snapshots/'
+def PR_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-pull-requests/'
 
 // Notification settings for "master" and "branch/pr"
 def notifyMaster = [notifyAdmins: true, recipients: [culprits(), requestor()]]
@@ -17,6 +17,11 @@ pipeline {
     }
     parameters {
         booleanParam(defaultValue: true, description: 'Send email notification?', name: 'NOTIFY_EMAIL')
+    }
+    environment {
+        // Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
+        ARTIFACT_ID = readMavenPom().getArtifactId()
+        VERSION = readMavenPom().getVersion()
     }
     options {
         timeout(time: 2, unit: 'HOURS')
@@ -40,15 +45,37 @@ pipeline {
         }
         stage('Deploy') {
             when {
-                expression { BRANCH_NAME == 'master' && (currentBuild.result == null || currentBuild.result == 'SUCCESS') }
+                expression {
+                    (currentBuild.result == null || currentBuild.result == 'SUCCESS') &&
+                    (
+                        BRANCH_NAME == 'master' || (env.VERSION.contains("PR-${env.CHANGE_ID}") || env.VERSION.contains(BRANCH_NAME))
+                    )
+                }
             }
             steps {
                 script {
-                    withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833', publisherStrategy: 'EXPLICIT')
+                    withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833')
                     {
-                        sh "mvn deploy" +
-                           " -DskipTests" +
-                           " -DaltDeploymentRepository=${SERVER_ID}::default::${SERVER_URL}"
+                        def SERVER_URL = DEPLOY_SERVER_URL;
+
+                        if (BRANCH_NAME == 'master')
+                        {
+                            echo "Deploying master"
+
+                            sh "mvn deploy" +
+                               " -DskipTests" +
+                               " -DaltDeploymentRepository=${SERVER_ID}::default::${SERVER_URL}"
+                        }
+                        else
+                        {
+                            echo "Deploying branch/PR"
+
+                            SERVER_URL = PR_SERVER_URL;
+
+                            sh "mvn deploy" +
+                               " -DskipTests" +
+                               " -DaltDeploymentRepository=${SERVER_ID}::default::${SERVER_URL}"
+                        }
                     }
                 }
             }
