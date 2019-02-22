@@ -80,6 +80,18 @@ pipeline {
                 }
             }
         }
+        stage('Deploying to GitHub') {
+            when {
+                expression { BRANCH_NAME == 'master' && (currentBuild.result == null || currentBuild.result == 'SUCCESS') }
+            }
+            steps {
+                withMaven(maven: 'maven-3.3.9',
+                          mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833')
+                {
+                    sh "mvn package -Pdeploy-release-artifact-to-github -Dmaven.test.skip=true"
+                }
+            }
+        }
     }
     post {
         success {
