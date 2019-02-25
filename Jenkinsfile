@@ -1,7 +1,7 @@
 @Library('jenkins-shared-libraries') _
 
-def SERVER_ID  = 'carlspring-oss-snapshots'
-def DEPLOY_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-snapshots/'
+def SERVER_ID  = 'carlspring'
+def RELEASE_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-releases/'
 def PR_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-pull-requests/'
 
 // Notification settings for "master" and "branch/pr"
@@ -24,7 +24,7 @@ pipeline {
         VERSION = readMavenPom().getVersion()
     }
     options {
-        timeout(time: 2, unit: 'HOURS')
+        timeout(time: 120, unit: 'MINUTES')
         disableConcurrentBuilds()
     }
     stages {
@@ -48,23 +48,75 @@ pipeline {
                 expression {
                     (currentBuild.result == null || currentBuild.result == 'SUCCESS') &&
                     (
-                        BRANCH_NAME == 'master' || (env.VERSION.contains("PR-${env.CHANGE_ID}") || env.VERSION.contains(BRANCH_NAME))
+                        BRANCH_NAME == 'master' ||
+                        env.VERSION.contains("PR-${env.CHANGE_ID}") ||
+                        env.VERSION.contains(BRANCH_NAME)
                     )
                 }
             }
             steps {
                 script {
-                    withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833')
-                    {
-                        def SERVER_URL = DEPLOY_SERVER_URL;
+                    withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833') {
+                        def SERVER_URL
+                        def APPROVE_RELEASE=false
+                        def APPROVED_BY=""
 
-                        if (BRANCH_NAME == 'master')
-                        {
-                            echo "Deploying master"
+                        if (BRANCH_NAME == 'master') {
+                            try {
+                                timeout(time: 115, unit: 'MINUTES')
+                                {
+                                    rocketSend attachments: [[
+                                         authorIcon: 'https://jenkins.carlspring.org/static/fd850815/images/headshot.png',
+                                         authorName: 'Jenkins',
+                                         color: '#f4bc0d',
+                                         text: env.JOB_NAME + ' is pending release approval!',
+                                         title: env.JOB_NAME + ' #' + env.BUILD_NUMBER,
+                                         titleLink: env.BUILD_URL,
+                                         channel: 'strongbox-devs'
+                                    ]], message: '', rawMessage: true
 
-                            sh "mvn deploy" +
-                               " -DskipTests" +
-                               " -DaltDeploymentRepository=${SERVER_ID}::default::${SERVER_URL}"
+                                    input message: 'Should I release and deploy this version?',
+                                          parameters: [
+                                                booleanParam(
+                                                    defaultValue: false,
+                                                    description: '',
+                                                    name: 'APPROVE_RELEASE'
+                                                )
+                                          ],
+                                          submitter: 'administrators,strongbox,strongbox-pro',
+                                          submitterParameter: 'APPROVED_BY'
+                                }
+                            }
+                            catch(err)
+                            {
+                                APPROVE_RELEASE=false
+                            }
+
+                            if(APPROVE_RELEASE == true)
+                            {
+                                echo "Release and deploy has been approved by: ${APPROVED_BY}"
+
+                                echo "Preparing release..."
+
+                                sh "mvn -B release:clean release:prepare"
+
+                                def releaseProperties = readProperties(file: "release.properties");
+                                def RELEASE_VERSION = releaseProperties["scm.tag"]
+
+                                sh "git push --follow-tags"
+
+                                echo "Deploying " + RELEASE_VERSION
+
+                                SERVER_URL = RELEASE_SERVER_URL
+
+                                sh "mvn deploy" +
+                                   " -DskipTests" +
+                                   " -DaltDeploymentRepository=${SERVER_ID}::default::${SERVER_URL}"
+                            }
+                            else
+                            {
+                                echo "Deployment has been skipped, because it was not approved."
+                            }
                         }
                         else
                         {
@@ -80,27 +132,8 @@ pipeline {
                 }
             }
         }
-        stage('Deploying to GitHub') {
-            when {
-                expression { BRANCH_NAME == 'master' && (currentBuild.result == null || currentBuild.result == 'SUCCESS') }
-            }
-            steps {
-                withMaven(maven: 'maven-3.3.9',
-                          mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833')
-                {
-                    sh "mvn package -Pdeploy-release-artifact-to-github -Dmaven.test.skip=true"
-                }
-            }
-        }
     }
     post {
-        success {
-            script {
-                if(BRANCH_NAME == 'master' && params.TRIGGER_OS_BUILD) {
-                    build job: "strongbox/strongbox", wait: false, parameters: [[$class: 'StringParameterValue', name: 'REVISION', value: '*/master']]
-                }
-            }
-        }
         failure {
             script {
                 if(params.NOTIFY_EMAIL) {
