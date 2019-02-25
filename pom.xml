@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-PR-6-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -28,11 +28,11 @@
     <inceptionYear>2018</inceptionYear>
 
     <scm>
-        <url>https://github.com/strongbox/strongbox/</url>
-        <connection>scm:git:git://github.com/strongbox/strongbox.git</connection>
-        <developerConnection>scm:git:git://github.com/strongbox/strongbox.git</developerConnection>
+        <url>https://github.com/strongbox/strongbox-parent/</url>
+        <connection>scm:git:git://github.com/strongbox/strongbox-parent.git</connection>
+        <developerConnection>scm:git:git://github.com/strongbox/strongbox-parent.git</developerConnection>
     </scm>
-
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -226,6 +226,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
+                    <configuration>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
+                        <pushChanges>false</pushChanges>
+                    </configuration>
                 </plugin>
                 
                 <plugin>
@@ -313,6 +317,10 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
