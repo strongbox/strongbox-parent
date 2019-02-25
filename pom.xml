@@ -1104,7 +1104,7 @@
             <dependency>
                 <groupId>org.unbroken-dome.liquibase-orientdb</groupId>
                 <artifactId>liquibase-orientdb</artifactId>
-                <version>0.3.0-PR-1-SNAPSHOT</version>
+                <version>0.3.0-strongbox-1</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.hibernate</groupId>
