@@ -222,7 +222,12 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.1.1</version>
                 </plugin>
-
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
+                </plugin>
+                
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -1099,7 +1104,7 @@
             <dependency>
                 <groupId>org.unbroken-dome.liquibase-orientdb</groupId>
                 <artifactId>liquibase-orientdb</artifactId>
-                <version>0.3.0</version>
+                <version>0.3.0-PR-1-SNAPSHOT</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.hibernate</groupId>
