@@ -29,8 +29,8 @@
 
     <scm>
         <url>https://github.com/strongbox/strongbox-parent/</url>
-        <connection>scm:git:git://github.com/strongbox/strongbox-parent.git</connection>
-        <developerConnection>scm:git:git://github.com/strongbox/strongbox-parent.git</developerConnection>
+        <connection>scm:git:git@github.com:strongbox/strongbox-parent.git</connection>
+        <developerConnection>scm:git:git@github.com:strongbox/strongbox-parent.git</developerConnection>
     </scm>
     
     <properties>
