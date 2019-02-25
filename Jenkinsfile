@@ -56,8 +56,7 @@ pipeline {
             }
             steps {
                 script {
-                    withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833') {
-                        def SERVER_URL
+                    withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833', options: [artifactsPublisher(), mavenLinkerPublisher()], tempBinDir: '') {
                         def APPROVE_RELEASE=false
                         def APPROVED_BY=""
 
@@ -85,24 +84,18 @@ pipeline {
 
                             if(APPROVE_RELEASE == true || APPROVE_RELEASE.equals(null))
                             {
-                                echo "Preparing release..."
+                                echo "Set upstream branch..."
+                                sh "git branch --set-upstream-to=origin/master master"
 
+                                echo "Preparing release and tag..."
                                 sh "mvn -B release:clean release:prepare"
 
                                 def releaseProperties = readProperties(file: "release.properties");
                                 def RELEASE_VERSION = releaseProperties["scm.tag"]
 
-                                echo "Pushing changes..."
-                                sh "git branch --set-upstream-to=origin/master master"
-                                sh "git push --follow-tags"
-
                                 echo "Deploying " + RELEASE_VERSION
 
-                                SERVER_URL = RELEASE_SERVER_URL
-
-                                sh "mvn deploy" +
-                                   " -DskipTests" +
-                                   " -DaltDeploymentRepository=${SERVER_ID}::default::${SERVER_URL}"
+                                sh "mvn -B release:perform -DserverId=${SERVER_ID} -DdeployUrl=${RELEASE_SERVER_URL}"
                             }
                             else
                             {
@@ -113,11 +106,9 @@ pipeline {
                         {
                             echo "Deploying branch/PR"
 
-                            SERVER_URL = PR_SERVER_URL;
-
                             sh "mvn deploy" +
                                " -DskipTests" +
-                               " -DaltDeploymentRepository=${SERVER_ID}::default::${SERVER_URL}"
+                               " -DaltDeploymentRepository=${SERVER_ID}::default::${PR_SERVER_URL}"
                         }
                     }
                 }

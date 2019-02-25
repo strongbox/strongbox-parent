@@ -39,6 +39,11 @@
 
         <license.licenseName>apache_v2</license.licenseName>
 
+        <!-- Release properties: -->
+        <serverId />
+        <deployUrl />
+        <!-- Release properties. -->
+
         <!-- Strongbox properties: -->
         <strongbox.home>${project.build.directory}/strongbox</strongbox.home>
         <strongbox.vault>${project.build.directory}/strongbox-vault</strongbox.vault>
@@ -228,7 +233,9 @@
                     <version>2.5.3</version>
                     <configuration>
                         <tagNameFormat>@{project.version}</tagNameFormat>
-                        <pushChanges>false</pushChanges>
+                        <pushChanges>true</pushChanges>
+                        <localCheckout>true</localCheckout>
+                        <goals>deploy -DaltDeploymentRepository=${serverId}::default::${deployUrl}</goals>
                     </configuration>
                 </plugin>
                 
