@@ -69,33 +69,22 @@ pipeline {
                                          authorIcon: 'https://jenkins.carlspring.org/static/fd850815/images/headshot.png',
                                          authorName: 'Jenkins',
                                          color: '#f4bc0d',
-                                         text: env.JOB_NAME + ' is pending release approval!',
+                                         text: 'Job is pending release approval! If no action is taken within an hour, it will abort releasing.',
                                          title: env.JOB_NAME + ' #' + env.BUILD_NUMBER,
-                                         titleLink: env.BUILD_URL,
-                                         channel: 'strongbox-devs'
-                                    ]], message: '', rawMessage: true
+                                         titleLink: env.BUILD_URL
+                                    ]], message: '', rawMessage: true, channel: '#strongbox-devs'
 
-                                    input message: 'Should I release and deploy this version?',
-                                          parameters: [
-                                                booleanParam(
-                                                    defaultValue: false,
-                                                    description: '',
-                                                    name: 'APPROVE_RELEASE'
-                                                )
-                                          ],
-                                          submitter: 'administrators,strongbox,strongbox-pro',
-                                          submitterParameter: 'APPROVED_BY'
+                                    APPROVE_RELEASE = input message: 'Do you want to release and deploy this version?',
+                                                            submitter: 'administrators,strongbox,strongbox-pro'
                                 }
                             }
                             catch(err)
                             {
-                                APPROVE_RELEASE=false
+                                APPROVE_RELEASE = false
                             }
 
-                            if(APPROVE_RELEASE == true)
+                            if(APPROVE_RELEASE == true || APPROVE_RELEASE.equals(null))
                             {
-                                echo "Release and deploy has been approved by: ${APPROVED_BY}"
-
                                 echo "Preparing release..."
 
                                 sh "mvn -B release:clean release:prepare"
@@ -103,6 +92,8 @@ pipeline {
                                 def releaseProperties = readProperties(file: "release.properties");
                                 def RELEASE_VERSION = releaseProperties["scm.tag"]
 
+                                echo "Pushing changes..."
+                                sh "git branch --set-upstream-to=origin/master master"
                                 sh "git push --follow-tags"
 
                                 echo "Deploying " + RELEASE_VERSION
