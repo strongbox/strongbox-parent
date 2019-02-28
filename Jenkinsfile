@@ -1,6 +1,7 @@
 @Library('jenkins-shared-libraries') _
 
 def SERVER_ID  = 'carlspring'
+def SNAPSHOT_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-snapshots'
 def RELEASE_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-releases/'
 def PR_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring-oss-pull-requests/'
 
@@ -20,6 +21,7 @@ pipeline {
     }
     environment {
         // Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
+        GROUP_ID = readMavenPom().getGroupId()
         ARTIFACT_ID = readMavenPom().getArtifactId()
         VERSION = readMavenPom().getVersion()
     }
@@ -57,55 +59,62 @@ pipeline {
             steps {
                 script {
                     withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833', options: [artifactsPublisher(), mavenLinkerPublisher()], tempBinDir: '') {
-                        def APPROVE_RELEASE=false
-                        def APPROVED_BY=""
+                        echo "Deploying " + GROUP_ID + ":" + ARTIFACT_ID + ":" + VERSION
 
-                        if (BRANCH_NAME == 'master') {
-                            try {
-                                timeout(time: 115, unit: 'MINUTES')
-                                {
-                                    rocketSend attachments: [[
-                                         authorIcon: 'https://jenkins.carlspring.org/static/fd850815/images/headshot.png',
-                                         authorName: 'Jenkins',
-                                         color: '#f4bc0d',
-                                         text: 'Job is pending release approval! If no action is taken within an hour, it will abort releasing.',
-                                         title: env.JOB_NAME + ' #' + env.BUILD_NUMBER,
-                                         titleLink: env.BUILD_URL
-                                    ]], message: '', rawMessage: true, channel: '#strongbox-devs'
+                        if (BRANCH_NAME == 'master')
+                        {
+                            // We are temporarily reverting back.
+                            sh "mvn deploy" +
+                               " -DskipTests" +
+                               " -DaltDeploymentRepository=${SERVER_ID}::default::${SNAPSHOT_SERVER_URL}"
 
-                                    APPROVE_RELEASE = input message: 'Do you want to release and deploy this version?',
-                                                            submitter: 'administrators,strongbox,strongbox-pro'
-                                }
-                            }
-                            catch(err)
-                            {
-                                APPROVE_RELEASE = false
-                            }
+                            // This will be used in the future.
+                            // def APPROVE_RELEASE=false
+                            // def APPROVED_BY=""
 
-                            if(APPROVE_RELEASE == true || APPROVE_RELEASE.equals(null))
-                            {
-                                echo "Set upstream branch..."
-                                sh "git branch --set-upstream-to=origin/master master"
+                            //try {
+                            //    timeout(time: 115, unit: 'MINUTES')
+                            //    {
+                            //        rocketSend attachments: [[
+                            //             authorIcon: 'https://jenkins.carlspring.org/static/fd850815/images/headshot.png',
+                            //             authorName: 'Jenkins',
+                            //             color: '#f4bc0d',
+                            //             text: 'Job is pending release approval! If no action is taken within an hour, it will abort releasing.',
+                            //             title: env.JOB_NAME + ' #' + env.BUILD_NUMBER,
+                            //             titleLink: env.BUILD_URL
+                            //        ]], message: '', rawMessage: true, channel: '#strongbox-devs'
+                            //
+                            //        APPROVE_RELEASE = input message: 'Do you want to release and deploy this version?',
+                            //                                submitter: 'administrators,strongbox,strongbox-pro'
+                            //    }
+                            //}
+                            //catch(err)
+                            //{
+                            //    APPROVE_RELEASE = false
+                            //}
 
-                                echo "Preparing release and tag..."
-                                sh "mvn -B release:clean release:prepare"
+                            //if(APPROVE_RELEASE == true || APPROVE_RELEASE.equals(null))
+                            //{
+                            //    echo "Set upstream branch..."
+                            //    sh "git branch --set-upstream-to=origin/master master"
 
-                                def releaseProperties = readProperties(file: "release.properties");
-                                def RELEASE_VERSION = releaseProperties["scm.tag"]
+                            //    echo "Preparing release and tag..."
+                            //    sh "mvn -B release:clean release:prepare"
 
-                                echo "Deploying " + RELEASE_VERSION
+                            //    def releaseProperties = readProperties(file: "release.properties");
+                            //    def RELEASE_VERSION = releaseProperties["scm.tag"]
 
-                                sh "mvn -B release:perform -DserverId=${SERVER_ID} -DdeployUrl=${RELEASE_SERVER_URL}"
-                            }
-                            else
-                            {
-                                echo "Deployment has been skipped, because it was not approved."
-                            }
+                            //    echo "Deploying " + RELEASE_VERSION
+
+                            //    sh "mvn -B release:perform -DserverId=${SERVER_ID} -DdeployUrl=${RELEASE_SERVER_URL}"
+                            //}
+                            //else
+                            //{
+                            //    echo "Deployment has been skipped, because it was not approved."
+                            //}
                         }
                         else
                         {
-                            echo "Deploying branch/PR"
-
                             sh "mvn deploy" +
                                " -DskipTests" +
                                " -DaltDeploymentRepository=${SERVER_ID}::default::${PR_SERVER_URL}"
@@ -116,6 +125,13 @@ pipeline {
         }
     }
     post {
+        success {
+            script {
+                if(BRANCH_NAME == 'master' && params.TRIGGER_OS_BUILD) {
+                    build job: "strongbox/strongbox", wait: false, parameters: [[$class: 'StringParameterValue', name: 'REVISION', value: '*/master']]
+                }
+            }
+        }
         failure {
             script {
                 if(params.NOTIFY_EMAIL) {
