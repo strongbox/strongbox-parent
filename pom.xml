@@ -1482,50 +1482,6 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>deploy-release-artifact-to-github</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>de.jutzig</groupId>
-                        <artifactId>github-release-plugin</artifactId>
-
-                        <configuration>
-                            <description>Strongbox parent version ${project.version}.</description>
-                            <releaseName>${project.version}</releaseName>
-                            <tag>${project.version}</tag>
-
-                            <overwriteArtifact>true</overwriteArtifact>
-                            <repositoryId>strongbox/strongbox-parent</repositoryId>
-                            <serverId>github</serverId>
-                            <deleteRelease>true</deleteRelease>
-
-                            <fileSets>
-                                <fileSet>
-                                    <directory>${project.basedir}</directory>
-                                    <includes>
-                                        <include>pom.xml</include>
-                                    </includes>
-                                </fileSet>
-                            </fileSets>
-                        </configuration>
-
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>release</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
 </project>
