@@ -96,7 +96,7 @@
         <version.jtwig>5.87.0.RELEASE</version.jtwig>
         <version.jacoco>0.8.2</version.jacoco>
         <version.codacy.mvn.plugin>1.1.0</version.codacy.mvn.plugin>
-		<version.semver>0.9.34-SNAPSHOT</version.semver>
+        <version.semver>0.9.34-SNAPSHOT</version.semver>
         <!-- Version properties. -->
         <surefireArgLine/>
         <failsafeArgLine/>
