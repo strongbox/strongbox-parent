@@ -52,10 +52,10 @@
         <!-- Version properties: -->
         <version.maven.indexer>6.0.1-SNAPSHOT</version.maven.indexer>
 
-        <version.carlspring.maven.commons>1.4-SNAPSHOT</version.carlspring.maven.commons>
-        <version.carlspring.commons.io>1.0-SNAPSHOT</version.carlspring.commons.io>
-        <version.carlspring.commons.http>1.0-SNAPSHOT</version.carlspring.commons.http>
-        <version.carlspring.logback.config>1.0-SNAPSHOT</version.carlspring.logback.config>
+        <version.carlspring.maven.commons>1.4</version.carlspring.maven.commons>
+        <version.carlspring.commons.io>1.0</version.carlspring.commons.io>
+        <version.carlspring.commons.http>1.0</version.carlspring.commons.http>
+        <version.carlspring.logback.config>1.0</version.carlspring.logback.config>
         <version.carlspring.npm.metadata>1.0-SNAPSHOT</version.carlspring.npm.metadata>
 
         <version.apache.directory>1.5.5</version.apache.directory>
@@ -270,12 +270,12 @@
                 <plugin>
                     <groupId>org.carlspring.maven</groupId>
                     <artifactId>unboundid-maven-plugin</artifactId>
-                    <version>1.0-SNAPSHOT</version>
+                    <version>1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.carlspring.maven</groupId>
                     <artifactId>little-proxy-maven-plugin</artifactId>
-                    <version>1.1-SNAPSHOT</version>
+                    <version>1.1</version>
                 </plugin>
 
                 <plugin>
