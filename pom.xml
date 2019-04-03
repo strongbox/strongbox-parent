@@ -97,6 +97,7 @@
         <version.jacoco>0.8.2</version.jacoco>
         <version.codacy.mvn.plugin>1.1.0</version.codacy.mvn.plugin>
         <version.semver>0.9.34-SNAPSHOT</version.semver>
+        <version.springfox>2.9.2</version.springfox>
         <!-- Version properties. -->
         <surefireArgLine/>
         <failsafeArgLine/>
@@ -1303,6 +1304,16 @@
                 <groupId>org.awaitility</groupId>
                 <artifactId>awaitility</artifactId>
                 <version>${version.awaitility}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${version.springfox}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${version.springfox}</version>
             </dependency>
 
         </dependencies>
