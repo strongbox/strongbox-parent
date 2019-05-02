@@ -97,6 +97,7 @@
         <version.codacy.mvn.plugin>1.1.0</version.codacy.mvn.plugin>
         <version.semver>0.9.34-SNAPSHOT</version.semver>
         <version.springfox>2.9.2</version.springfox>
+        <version.c3p0>0.9.5.4</version.c3p0>
         <!-- Version properties. -->
         <surefireArgLine/>
         <failsafeArgLine/>
@@ -1297,6 +1298,11 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${version.springfox}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mchange</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>${version.c3p0}</version>
             </dependency>
 
         </dependencies>
