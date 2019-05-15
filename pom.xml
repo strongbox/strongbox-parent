@@ -79,7 +79,8 @@
         <version.maven>3.3.9</version.maven>
         <version.mockito>2.22.0</version.mockito>
         <version.orientdb>3.0.0</version.orientdb>
-        <version.quartz>2.3.0</version.quartz>
+        <version.c3p0>0.9.5.4</version.c3p0>
+        <version.quartz>2.3.1</version.quartz>
         <version.servlet.api>3.1.0</version.servlet.api>
         <version.slf4j>1.7.24</version.slf4j>
         <version.spring.boot>2.1.2.RELEASE</version.spring.boot>
@@ -859,10 +860,19 @@
             </dependency>
 
             <dependency>
+                <groupId>com.mchange</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>${version.c3p0}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.quartz-scheduler</groupId>
                 <artifactId>quartz</artifactId>
                 <version>${version.quartz}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>com.mchange</groupId>
+                        <artifactId>c3p0</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>com.zaxxer</groupId>
                         <artifactId>HikariCP-java6</artifactId>
