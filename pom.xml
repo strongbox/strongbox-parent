@@ -52,7 +52,7 @@
         <!-- Version properties: -->
         <version.maven.indexer>6.0.1-SNAPSHOT</version.maven.indexer>
 
-        <version.carlspring.maven.commons>1.6</version.carlspring.maven.commons>
+        <version.carlspring.maven.commons>1.5</version.carlspring.maven.commons>
         <version.carlspring.commons.io>1.0</version.carlspring.commons.io>
         <version.carlspring.commons.http>1.0</version.carlspring.commons.http>
         <version.carlspring.logback.config>1.0</version.carlspring.logback.config>
@@ -98,7 +98,6 @@
         <version.codacy.mvn.plugin>1.1.0</version.codacy.mvn.plugin>
         <version.semver>0.9.34-SNAPSHOT</version.semver>
         <version.springfox>2.9.2</version.springfox>
-        <version.commons-collections4>4.3</version.commons-collections4>
         <!-- Version properties. -->
         <surefireArgLine/>
         <failsafeArgLine/>
@@ -1150,7 +1149,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
-                <version>${version.commons-collections4}</version>
+                <version>4.3</version>
             </dependency>
 
             <dependency>
