@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-PR-30-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -48,6 +48,12 @@
         <strongbox.home>${project.build.directory}/strongbox</strongbox.home>
         <strongbox.vault>${project.build.directory}/strongbox-vault</strongbox.vault>
         <!-- Strongbox properties. -->
+
+        <!-- Default ports for local development: -->
+        <port.jetty.listen>48080</port.jetty.listen>
+        <port.jetty.shutdown>19081</port.jetty.shutdown>
+        <strongbox.host>localhost</strongbox.host>
+        <strongbox.port>${port.jetty.listen}</strongbox.port>
 
         <!-- Version properties: -->
         <version.maven.indexer>6.0.1-SNAPSHOT</version.maven.indexer>
@@ -169,7 +175,7 @@
                     <inherited>true</inherited>
                     <configuration>
                         <useSystemClassLoader>false</useSystemClassLoader>
-                        <argLine>-Xmx1024m -Xms512m -Dstrongbox.download.indexes.storage-common-proxies.*=false -Dstrongbox.download.indexes.storage-springsource-proxies.*=false -Dstrongbox.download.indexes=false -Dstrongbox.download.indexes.storage-sbt-proxies.*=false -Dstrongbox.npm.remote.changes.enabled=false ${surefireArgLine}</argLine>
+                        <argLine>-Xmx1024m -Xms512m ${surefireArgLine}</argLine>
                         <includes>
                             <include>**/*Test</include>
                         </includes>
@@ -184,12 +190,15 @@
                             <strongbox.home>${project.build.directory}/strongbox</strongbox.home>
                             <strongbox.vault>${project.build.directory}/strongbox-vault</strongbox.vault>
                             <strongbox.storage.booter.basedir>${project.build.directory}/strongbox-vault/storages</strongbox.storage.booter.basedir>
-                            <strongbox.config.xml>${project.build.directory}/strongbox/etc/conf/strongbox.xml</strongbox.config.xml>
+                            <strongbox.config.file>${project.build.directory}/strongbox/etc/conf/strongbox.yaml</strongbox.config.file>
+                            <strongbox.host>${strongbox.host}</strongbox.host>
+                            <strongbox.port>${strongbox.port}</strongbox.port>
                             <logging.dir>${strongbox.vault}/logs</logging.dir>
-                            <logging.config.file>${project.build.directory}/strongbox/etc/logback-debug.xml</logging.config.file>
-                            <logback.configurationFile>${dir.strongbox.home}/etc/logback-debug.xml</logback.configurationFile>
+                            <logging.config>${project.build.directory}/strongbox/etc/logback-spring.xml</logging.config>
                             <java.io.tmpdir>${strongbox.vault}/tmp</java.io.tmpdir>
                             <ehcache.disk.store.dir>${project.build.directory}/strongbox/cache</ehcache.disk.store.dir>
+                            <strongbox.nuget.download.feed>false</strongbox.nuget.download.feed>
+                            <strongbox.download.indexes>false</strongbox.download.indexes>
                         </systemPropertyVariables>
 
                         <properties>
@@ -207,17 +216,21 @@
 
                     <configuration>
                         <useSystemClassLoader>false</useSystemClassLoader>
-                        <argLine>-Dstrongbox.download.indexes.storage-common-proxies.*=false -Dstrongbox.download.indexes.storage-springsource-proxies.*=false -Dstrongbox.download.indexes=false -Dstrongbox.download.indexes.storage-sbt-proxies.*=false ${failsafeArgLine}</argLine>
+                        <argLine>${failsafeArgLine}</argLine>
                         <systemPropertyVariables>
                             <strongbox.home>${project.build.directory}/strongbox</strongbox.home>
                             <strongbox.vault>${project.build.directory}/strongbox-vault</strongbox.vault>
                             <strongbox.storage.booter.basedir>${project.build.directory}/strongbox-vault/storages</strongbox.storage.booter.basedir>
-                            <strongbox.config.xml>${project.build.directory}/strongbox/etc/conf/strongbox.xml</strongbox.config.xml>
+                            <strongbox.config.file>${project.build.directory}/strongbox/etc/conf/strongbox.yaml</strongbox.config.file>
+                            <strongbox.host>${strongbox.host}</strongbox.host>
+                            <strongbox.port>${strongbox.port}</strongbox.port>
                             <logging.dir>${strongbox.vault}/logs</logging.dir>
-                            <logging.config.file>${project.build.directory}/strongbox/etc/logback-debug.xml</logging.config.file>
-                            <logback.configurationFile>${dir.strongbox.home}/etc/logback-debug.xml</logback.configurationFile>
+                            <logging.config>${project.build.directory}/strongbox/etc/logback-spring.xml</logging.config>
+                            <logging.debug>true</logging.debug>
                             <java.io.tmpdir>${strongbox.vault}/tmp</java.io.tmpdir>
                             <ehcache.disk.store.dir>${project.build.directory}/strongbox/cache</ehcache.disk.store.dir>
+                            <strongbox.nuget.download.feed>false</strongbox.nuget.download.feed>
+                            <strongbox.download.indexes>false</strongbox.download.indexes>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
@@ -225,6 +238,49 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>3.1.1</version>
+                    <executions>
+                        <execution>
+                            <id>common-resources</id>
+                            <goals>
+                                <goal>unpack</goal>
+                            </goals>
+                            <phase>process-resources</phase>
+                            <configuration>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>${project.groupId}</groupId>
+                                        <artifactId>strongbox-common-resources</artifactId>
+                                        <version>${project.version}</version>
+                                        <type>jar</type>
+        
+                                        <overWrite>true</overWrite>
+                                        <outputDirectory>${strongbox.home}/etc</outputDirectory>
+                                        <includes>logback*xml</includes>
+                                    </artifactItem>
+                                    <artifactItem>
+                                        <groupId>${project.groupId}</groupId>
+                                        <artifactId>strongbox-storage-api-resources</artifactId>
+                                        <version>${project.version}</version>
+                                        <type>jar</type>
+        
+                                        <overWrite>true</overWrite>
+                                        <outputDirectory>${strongbox.home}</outputDirectory>
+                                        <includes>etc/conf/strongbox.yaml</includes>
+                                    </artifactItem>
+                                    <artifactItem>
+                                        <groupId>${project.groupId}</groupId>
+                                        <artifactId>strongbox-common-resources</artifactId>
+                                        <version>${project.version}</version>
+                                        <type>jar</type>
+    
+                                        <overWrite>true</overWrite>
+                                        <outputDirectory>${strongbox.home}</outputDirectory>
+                                        <includes>etc/**</includes>
+                                    </artifactItem>
+                                </artifactItems>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -1314,7 +1370,11 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${version.springfox}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.codehaus.janino</groupId>
+                <artifactId>janino</artifactId>
+                <version>3.0.6</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -1341,6 +1401,10 @@
                     <artifactId>junit</artifactId>
                 </exclusion>
              </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
         </dependency>
     </dependencies>
 
