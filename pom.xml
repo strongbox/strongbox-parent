@@ -103,6 +103,7 @@
         <version.codacy.mvn.plugin>1.1.0</version.codacy.mvn.plugin>
         <version.semver>0.9.34-SNAPSHOT</version.semver>
         <version.springfox>2.9.2</version.springfox>
+        <version.assertj>3.13.2</version.assertj>
         <!-- Version properties. -->
         <surefireArgLine/>
         <failsafeArgLine/>
@@ -990,6 +991,12 @@
                 <artifactId>hamcrest-all</artifactId>
                 <version>${version.hamcrest}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${version.assertj}</version>
+                 <scope>test</scope>
             </dependency>
 
             <dependency>
