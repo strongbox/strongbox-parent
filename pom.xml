@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-PR-1456-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -952,10 +952,11 @@
                 <version>0.6.3</version>
             </dependency>
             <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-                <version>${version.junit.jupiter}</version>
-                <scope>test</scope>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.junit.platform</groupId>
