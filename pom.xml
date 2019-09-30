@@ -57,7 +57,7 @@
         <version.maven.indexer>6.0.1-SNAPSHOT</version.maven.indexer>
 
         <version.carlspring.commons.io>1.0</version.carlspring.commons.io>
-        <version.carlspring.commons.http>1.0</version.carlspring.commons.http>
+        <version.carlspring.commons.http>1.1</version.carlspring.commons.http>
         <version.carlspring.logback.config>1.0</version.carlspring.logback.config>
         <version.carlspring.npm.metadata>1.0-SNAPSHOT</version.carlspring.npm.metadata>
 
@@ -405,13 +405,13 @@
         <dependencies>
             <dependency>
                 <groupId>org.carlspring.commons</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${version.carlspring.commons.io}</version>
+                <artifactId>commons-http</artifactId>
+                <version>${version.carlspring.commons.http}</version>
             </dependency>
             <dependency>
                 <groupId>org.carlspring.commons</groupId>
-                <artifactId>commons-http</artifactId>
-                <version>${version.carlspring.commons.http}</version>
+                <artifactId>commons-io</artifactId>
+                <version>${version.carlspring.commons.io}</version>
             </dependency>
             <dependency>
                 <groupId>org.carlspring.logging</groupId>
