@@ -896,6 +896,16 @@
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
                 <version>${version.groovy}</version>
+                 <exclusions>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-testng</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.testng</groupId>
+                        <artifactId>testng</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
