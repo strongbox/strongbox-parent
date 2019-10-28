@@ -97,7 +97,7 @@
         <version.liquibase>3.6.3</version.liquibase>
         <version.reflections>0.9.11</version.reflections>
         <version.liquibase.slf4j>2.0.0</version.liquibase.slf4j>
-        <version.awaitility>3.1.2</version.awaitility>
+        <version.awaitility>4.0.1</version.awaitility>
         <version.asm>6.0</version.asm>
         <version.jtwig>5.87.0.RELEASE</version.jtwig>
         <version.jacoco>0.8.2</version.jacoco>
