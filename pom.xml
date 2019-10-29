@@ -1299,19 +1299,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>catalina</artifactId>
-                <version>6.0.53</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>servlet-api</artifactId>
-                    </exclusion>
-                </exclusions>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>com.github.ThoughtWire</groupId>
                 <artifactId>hazelcast-locks</artifactId>
                 <version>v1.0.1</version>
