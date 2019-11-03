@@ -11,10 +11,7 @@ def notifyBranch = [recipients: [brokenTestsSuspects(), requestor()]]
 
 pipeline {
     agent {
-        node {
-            label 'alpine-jdk8-mvn3.6'
-            customWorkspace workspace().getUniqueWorkspacePath()
-        }
+        label 'alpine-jdk8-mvn3.6'
     }
     parameters {
         booleanParam(defaultValue: true, description: 'Send email notification?', name: 'NOTIFY_EMAIL')
@@ -30,18 +27,19 @@ pipeline {
         disableConcurrentBuilds()
     }
     stages {
-        stage('Node')
-        {
+        stage('Node') {
             steps {
-                nodeInfo("mvn")
+                container("maven") {
+                    nodeInfo("mvn")
+                }
             }
         }
-        stage('Building')
-        {
+        stage('Building') {
             steps {
-                withMavenPlus(timestamps: true, mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: '67aaee2b-ca74-4ae1-8eb9-c8f16eb5e534')
-                {
-                    sh "mvn -U clean install -Dprepare.revision"
+                container("maven") {
+                    withMavenPlus(timestamps: true, mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: '67aaee2b-ca74-4ae1-8eb9-c8f16eb5e534') {
+                        sh "mvn -U clean install -Dprepare.revision"
+                    }
                 }
             }
         }
@@ -58,66 +56,16 @@ pipeline {
             }
             steps {
                 script {
-                    withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833', options: [artifactsPublisher(), mavenLinkerPublisher()], tempBinDir: '') {
-                        echo "Deploying " + GROUP_ID + ":" + ARTIFACT_ID + ":" + VERSION
+                    container("maven") {
+                        withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833', options: [artifactsPublisher(), mavenLinkerPublisher()], tempBinDir: '') {
+                            echo "Deploying " + GROUP_ID + ":" + ARTIFACT_ID + ":" + VERSION
+    
+                            def SERVER_URL = PR_SERVER_URL
+                            if (BRANCH_NAME == 'master') {
+                                SERVER_URL = SNAPSHOT_SERVER_URL
+                            }
 
-                        if (BRANCH_NAME == 'master')
-                        {
-                            // We are temporarily reverting back.
-                            sh "mvn deploy" +
-                               " -DskipTests" +
-                               " -DaltDeploymentRepository=${SERVER_ID}::default::${SNAPSHOT_SERVER_URL}"
-
-                            // This will be used in the future.
-                            // def APPROVE_RELEASE=false
-                            // def APPROVED_BY=""
-
-                            //try {
-                            //    timeout(time: 115, unit: 'MINUTES')
-                            //    {
-                            //        rocketSend attachments: [[
-                            //             authorIcon: 'https://jenkins.carlspring.org/static/fd850815/images/headshot.png',
-                            //             authorName: 'Jenkins',
-                            //             color: '#f4bc0d',
-                            //             text: 'Job is pending release approval! If no action is taken within an hour, it will abort releasing.',
-                            //             title: env.JOB_NAME + ' #' + env.BUILD_NUMBER,
-                            //             titleLink: env.BUILD_URL
-                            //        ]], message: '', rawMessage: true, channel: '#strongbox-devs'
-                            //
-                            //        APPROVE_RELEASE = input message: 'Do you want to release and deploy this version?',
-                            //                                submitter: 'administrators,strongbox,strongbox-pro'
-                            //    }
-                            //}
-                            //catch(err)
-                            //{
-                            //    APPROVE_RELEASE = false
-                            //}
-
-                            //if(APPROVE_RELEASE == true || APPROVE_RELEASE.equals(null))
-                            //{
-                            //    echo "Set upstream branch..."
-                            //    sh "git branch --set-upstream-to=origin/master master"
-
-                            //    echo "Preparing release and tag..."
-                            //    sh "mvn -B release:clean release:prepare"
-
-                            //    def releaseProperties = readProperties(file: "release.properties");
-                            //    def RELEASE_VERSION = releaseProperties["scm.tag"]
-
-                            //    echo "Deploying " + RELEASE_VERSION
-
-                            //    sh "mvn -B release:perform -DserverId=${SERVER_ID} -DdeployUrl=${RELEASE_SERVER_URL}"
-                            //}
-                            //else
-                            //{
-                            //    echo "Deployment has been skipped, because it was not approved."
-                            //}
-                        }
-                        else
-                        {
-                            sh "mvn deploy" +
-                               " -DskipTests" +
-                               " -DaltDeploymentRepository=${SERVER_ID}::default::${PR_SERVER_URL}"
+                            sh "mvn deploy -DskipTests -DaltDeploymentRepository=${SERVER_ID}::default::${SERVER_URL}"
                         }
                     }
                 }
@@ -151,11 +99,6 @@ pipeline {
                 if(params.NOTIFY_EMAIL) {
                     notifyFixed((BRANCH_NAME == "master") ? notifyMaster : notifyBranch)
                 }
-            }
-        }
-        cleanup {
-            script {
-                workspace().clean()
             }
         }
     }
