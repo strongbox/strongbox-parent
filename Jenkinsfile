@@ -37,7 +37,12 @@ pipeline {
         stage('Building') {
             steps {
                 container("maven") {
-                    withMavenPlus(timestamps: true, mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: '67aaee2b-ca74-4ae1-8eb9-c8f16eb5e534') {
+                    withMavenPlus(
+                        timestamps: true,
+                        mavenLocalRepo: workspace().getM2LocalRepoPath(),
+                        mavenSettingsConfig: '67aaee2b-ca74-4ae1-8eb9-c8f16eb5e534',
+                        publisherStrategy: 'EXPLICIT'
+                    ) {
                         sh "mvn -U clean install -Dprepare.revision"
                     }
                 }
@@ -57,9 +62,19 @@ pipeline {
             steps {
                 script {
                     container("maven") {
-                        withMavenPlus(mavenLocalRepo: workspace().getM2LocalRepoPath(), mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833', options: [artifactsPublisher(), mavenLinkerPublisher()], tempBinDir: '') {
+                        withMavenPlus(
+                            mavenLocalRepo: workspace().getM2LocalRepoPath(),
+                            mavenSettingsConfig: 'a5452263-40e5-4d71-a5aa-4fc94a0e6833',
+                            options: [
+                                artifactsPublisher(disabled: true),
+                                // https://issues.jenkins-ci.org/browse/JENKINS-46152
+                                pipelineGraphPublisher(includeReleaseVersions: true, skipDownstreamTriggers: true),
+                                mavenLinkerPublisher()
+                            ],
+                            publisherStrategy: 'EXPLICIT'
+                        ) {
                             echo "Deploying " + GROUP_ID + ":" + ARTIFACT_ID + ":" + VERSION
-    
+
                             def SERVER_URL = PR_SERVER_URL
                             if (BRANCH_NAME == 'master') {
                                 SERVER_URL = SNAPSHOT_SERVER_URL
