@@ -102,6 +102,7 @@
         <version.codacy.mvn.plugin>1.1.0</version.codacy.mvn.plugin>
         <version.semver>0.9.34-SNAPSHOT</version.semver>
         <version.springfox>2.9.2</version.springfox>
+        <version.redline>1.2.9</version.redline>
         <!-- Version properties. -->
         <surefireArgLine/>
         <failsafeArgLine/>
@@ -895,6 +896,13 @@
             </dependency>
 
             <dependency>
+                <groupId>org.redline-rpm</groupId>
+                <artifactId>redline</artifactId>
+                <version>${version.redline}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.mchange</groupId>
                 <artifactId>c3p0</artifactId>
                 <version>${version.c3p0}</version>
@@ -1242,6 +1250,17 @@
                 <version>${version.asm}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${version.spring.boot}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-jetty</artifactId>
