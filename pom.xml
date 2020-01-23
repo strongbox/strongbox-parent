@@ -197,7 +197,6 @@
                         <!-- This field needs to be set to 1 or jacoco reports will be incorrect/missing! -->
                         <forkCount>1</forkCount>
                         <trimStackTrace>false</trimStackTrace>
-
                         <systemPropertyVariables>
                             <strongbox.home>${project.build.directory}/strongbox</strongbox.home>
                             <strongbox.vault>${project.build.directory}/strongbox-vault</strongbox.vault>
@@ -1029,7 +1028,7 @@
                 <scope>test</scope>
             </dependency>
 
-
+            
             <dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
@@ -1446,7 +1445,7 @@
                 <groupId>org.apache.tinkerpop</groupId>
                 <artifactId>gremlin-core</artifactId>
                 <version>${version.tinkerpop}</version>
-            </dependency>
+            </dependency>            
             <dependency>
                 <groupId>org.apache.tinkerpop</groupId>
                 <artifactId>gremlin-driver</artifactId>
@@ -1478,7 +1477,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-
             <dependency>
                 <groupId>org.opencypher.gremlin</groupId>
                 <artifactId>cypher-gremlin-neo4j-driver</artifactId>
@@ -1505,7 +1503,6 @@
                 <artifactId>neo4j-ogm-core</artifactId>
                 <version>3.2.10</version>
             </dependency>
-
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-neo4j</artifactId>
