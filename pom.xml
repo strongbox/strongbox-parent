@@ -1028,7 +1028,7 @@
                 <scope>test</scope>
             </dependency>
 
-            
+
             <dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
@@ -1445,7 +1445,7 @@
                 <groupId>org.apache.tinkerpop</groupId>
                 <artifactId>gremlin-core</artifactId>
                 <version>${version.tinkerpop}</version>
-            </dependency>            
+            </dependency>
             <dependency>
                 <groupId>org.apache.tinkerpop</groupId>
                 <artifactId>gremlin-driver</artifactId>
