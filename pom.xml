@@ -65,7 +65,7 @@
         <version.apache.commons.compress>1.19</version.apache.commons.compress>
         <version.apache.directory>1.5.5</version.apache.directory>
         <version.appassembler>2.1.0</version.appassembler>
-        <version.groovy>2.5.7</version.groovy>
+        <version.groovy>3.0.2</version.groovy>
         <version.guava>29.0-jre</version.guava>
         <version.hamcrest>2.2</version.hamcrest>
         <version.hazelcast>3.10.2</version.hazelcast>
