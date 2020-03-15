@@ -629,8 +629,13 @@
                         <groupId>org.codehaus.groovy</groupId>
                         <artifactId>groovy-json</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>io.rest-assured</groupId>
+                        <artifactId>json-path</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
+
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -1547,7 +1552,15 @@
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
-            </exclusions>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>json-path</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>xml-path</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
