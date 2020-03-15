@@ -87,7 +87,7 @@
         <version.servlet.api>3.1.0</version.servlet.api>
         <version.slf4j>1.7.30</version.slf4j>
         <version.spring.boot>2.2.4.RELEASE</version.spring.boot>
-        <version.rest.assured>4.3.1-SNAPSHOT</version.rest.assured>
+        <version.rest.assured>4.3.0</version.rest.assured>
         <version.hibernate.validator>6.1.0.Final</version.hibernate.validator>
         <version.glassfish.javax.el>3.0.1-b08</version.glassfish.javax.el>
         <version.antlr>4.7.1</version.antlr>
@@ -620,8 +620,13 @@
                         <groupId>org.codehaus.groovy</groupId>
                         <artifactId>groovy-json</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>io.rest-assured</groupId>
+                        <artifactId>json-path</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
+
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -1417,7 +1422,15 @@
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
-            </exclusions>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>json-path</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>xml-path</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
