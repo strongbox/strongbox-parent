@@ -103,6 +103,7 @@
         <version.semver>0.9.34-SNAPSHOT</version.semver>
         <version.springfox>2.9.2</version.springfox>
         <version.redline>1.2.9</version.redline>
+        <version.jdeb>1.8</version.jdeb>
         <!-- Version properties. -->
         <surefireArgLine/>
         <failsafeArgLine/>
@@ -365,6 +366,11 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${version.spring.boot}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>jdeb</artifactId>
+                    <groupId>org.vafer</groupId>
+                    <version>${version.jdeb}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
