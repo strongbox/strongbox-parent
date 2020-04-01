@@ -366,6 +366,11 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${version.spring.boot}</version>
                 </plugin>
+                <plugin>
+                    <artifactId>jdeb</artifactId>
+                    <groupId>org.vafer</groupId>
+                    <version>1.8</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
