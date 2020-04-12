@@ -1020,19 +1020,6 @@
                 <version>${version.rest.assured}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>json-path</artifactId>
-                <version>${version.rest.assured}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>xml-path</artifactId>
-                <version>${version.rest.assured}</version>
-                <scope>test</scope>
-            </dependency>
-
 
             <dependency>
                 <groupId>io.rest-assured</groupId>
