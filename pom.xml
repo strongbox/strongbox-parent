@@ -186,6 +186,7 @@
                             <ehcache.disk.store.dir>${project.build.directory}/strongbox/cache</ehcache.disk.store.dir>
                             <strongbox.nuget.download.feed>false</strongbox.nuget.download.feed>
                             <strongbox.download.indexes>false</strongbox.download.indexes>
+                            <strongbox.npm.remote.changes.enabled>false</strongbox.npm.remote.changes.enabled>
                         </systemPropertyVariables>
 
                         <properties>
