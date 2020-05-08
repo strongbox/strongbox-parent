@@ -26,6 +26,9 @@ pipeline {
         timeout(time: 120, unit: 'MINUTES')
         disableConcurrentBuilds()
     }
+    triggers {
+        cron(isMasterBranch ? '' : 'H * * * */6')
+    }
     stages {
         stage('Node') {
             steps {
