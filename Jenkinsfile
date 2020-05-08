@@ -8,6 +8,7 @@ def PR_SERVER_URL = 'https://repo.carlspring.org/content/repositories/carlspring
 // Notification settings for "master" and "branch/pr"
 def notifyMaster = [notifyAdmins: true, recipients: [culprits(), requestor()]]
 def notifyBranch = [recipients: [brokenTestsSuspects(), requestor()]]
+def isMasterBranch = 'master'.equals(env.BRANCH_NAME);
 
 pipeline {
     agent {
