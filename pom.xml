@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-PR-62-SNAPSHOT</version>
+    <version>1.0-issues-1775-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -32,7 +32,7 @@
         <connection>scm:git:git@github.com:strongbox/strongbox-parent.git</connection>
         <developerConnection>scm:git:git@github.com:strongbox/strongbox-parent.git</developerConnection>
     </scm>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -66,7 +66,7 @@
         <version.apache.directory>1.5.5</version.apache.directory>
         <version.appassembler>2.0.0</version.appassembler>
         <version.groovy>2.5.7</version.groovy>
-        <version.guava>20.0</version.guava>
+        <version.guava>29.0-jre</version.guava>
         <version.hamcrest>1.3</version.hamcrest>
         <version.hazelcast>3.10.2</version.hazelcast>
         <version.httpclient>4.5</version.httpclient>
@@ -85,6 +85,7 @@
         <version.c3p0>0.9.5.4</version.c3p0>
         <version.quartz>2.3.2</version.quartz>
         <version.servlet.api>3.1.0</version.servlet.api>
+        <version.annotation.api>1.3.2</version.annotation.api>
         <version.slf4j>1.7.24</version.slf4j>
         <version.spring.boot>2.2.4.RELEASE</version.spring.boot>
         <version.rest.assured>4.2.0</version.rest.assured>
@@ -102,13 +103,13 @@
         <version.semver>0.9.34-SNAPSHOT</version.semver>
         <version.springfox>2.9.2</version.springfox>
         <version.redline>1.2.9</version.redline>
-        
-        <version.janusgraph>0.5.0</version.janusgraph>
-        <version.cassandra>3.11.5</version.cassandra>
+
+        <version.janusgraph>0.5.2</version.janusgraph>
+        <version.cassandra>4.0-beta2</version.cassandra>
         <version.tinkerpop>3.4.6</version.tinkerpop>
-        
+
         <verion.opencypher>1.0.4</verion.opencypher>
-        
+
         <!-- Version properties. -->
         <surefireArgLine/>
         <failsafeArgLine/>
@@ -179,7 +180,7 @@
                         <!-- This field needs to be set to 1 or jacoco reports will be incorrect/missing! -->
                         <forkCount>1</forkCount>
                         <trimStackTrace>false</trimStackTrace>
-                        
+
                         <systemPropertyVariables>
                             <strongbox.home>${project.build.directory}/strongbox</strongbox.home>
                             <strongbox.vault>${project.build.directory}/strongbox-vault</strongbox.vault>
@@ -247,7 +248,7 @@
                                         <artifactId>strongbox-common-resources</artifactId>
                                         <version>${project.version}</version>
                                         <type>jar</type>
-        
+
                                         <overWrite>true</overWrite>
                                         <outputDirectory>${strongbox.home}/etc</outputDirectory>
                                         <includes>logback*xml</includes>
@@ -257,7 +258,7 @@
                                         <artifactId>strongbox-storage-api-resources</artifactId>
                                         <version>${project.version}</version>
                                         <type>jar</type>
-        
+
                                         <overWrite>true</overWrite>
                                         <outputDirectory>${strongbox.home}</outputDirectory>
                                         <includes>etc/conf/strongbox.yaml</includes>
@@ -267,7 +268,7 @@
                                         <artifactId>strongbox-common-resources</artifactId>
                                         <version>${project.version}</version>
                                         <type>jar</type>
-    
+
                                         <overWrite>true</overWrite>
                                         <outputDirectory>${strongbox.home}</outputDirectory>
                                         <includes>etc/**</includes>
@@ -293,7 +294,7 @@
                         <goals>deploy -DaltDeploymentRepository=${serverId}::default::${deployUrl}</goals>
                     </configuration>
                 </plugin>
-                
+
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -444,6 +445,11 @@
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${version.servlet.api}</version>
             </dependency>
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${version.annotation.api}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -460,29 +466,12 @@
                 <artifactId>annotations</artifactId>
                 <version>${version.findbugs.annotations}</version>
             </dependency>
-            
-            <!--
-            <dependency>
-                <groupId>org.jtwig</groupId>	
-                <artifactId>jtwig-spring</artifactId>	
-                <version>${version.jtwig}</version>	
-                <exclusions>	
-                    <exclusion>	
-                        <groupId>com.googlecode.concurrentlinkedhashmap</groupId>	
-                        <artifactId>concurrentlinkedhashmap-lru</artifactId>	
-                    </exclusion>	
-                </exclusions>	
-            </dependency>
-            -->
+
             <dependency>
                 <groupId>org.jtwig</groupId>
                 <artifactId>jtwig-core</artifactId>
                 <version>${version.jtwig}</version>
                 <exclusions>
-                    <exclusion>
-                        <groupId>com.googlecode.concurrentlinkedhashmap</groupId>
-                        <artifactId>concurrentlinkedhashmap-lru</artifactId>
-                    </exclusion>
                     <exclusion>
                         <groupId>com.google.guava</groupId>
                         <artifactId>guava</artifactId>
@@ -514,8 +503,8 @@
                 <artifactId>commons-io</artifactId>
                 <version>${version.apache.commons.io}</version>
             </dependency>
-            <!-- Override for transitive dependencies which bring older vulnerable 
-                versions of the commons-beanutils:commons-beanutils in order to not be exposed 
+            <!-- Override for transitive dependencies which bring older vulnerable
+                versions of the commons-beanutils:commons-beanutils in order to not be exposed
                 to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0114 -->
             <dependency>
                 <groupId>commons-beanutils</groupId>
@@ -548,7 +537,7 @@
                         <artifactId>jsr311-api</artifactId>
                     </exclusion>
                     <exclusion>
-                        <!-- Excluding this transitive dependency in order 
+                        <!-- Excluding this transitive dependency in order
                             to not be exposed to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-3720 -->
                         <groupId>com.fasterxml.jackson.datatype</groupId>
                         <artifactId>jackson-datatype-joda</artifactId>
@@ -889,7 +878,7 @@
                 <scope>test</scope>
             </dependency>
 
-            
+
             <dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
@@ -1329,7 +1318,7 @@
                 <groupId>org.apache.tinkerpop</groupId>
                 <artifactId>gremlin-core</artifactId>
                 <version>${version.tinkerpop}</version>
-            </dependency>            
+            </dependency>
             <dependency>
                 <groupId>org.apache.tinkerpop</groupId>
                 <artifactId>gremlin-driver</artifactId>
@@ -1361,7 +1350,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-    
+
             <dependency>
                 <groupId>org.opencypher.gremlin</groupId>
                 <artifactId>cypher-gremlin-neo4j-driver</artifactId>
@@ -1388,7 +1377,7 @@
                 <artifactId>neo4j-ogm-core</artifactId>
                 <version>3.2.10</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-neo4j</artifactId>
