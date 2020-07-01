@@ -84,7 +84,7 @@
         <version.mockito>3.1.0</version.mockito>
         <version.orientdb>3.0.0</version.orientdb>
         <version.c3p0>0.9.5.4</version.c3p0>
-        <version.quartz>2.3.1</version.quartz>
+        <version.quartz>2.3.2</version.quartz>
         <version.servlet.api>3.1.0</version.servlet.api>
         <version.slf4j>1.7.24</version.slf4j>
         <version.spring.boot>2.2.4.RELEASE</version.spring.boot>
