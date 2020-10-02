@@ -851,6 +851,12 @@
                 <groupId>org.codehaus.mojo.appassembler</groupId>
                 <artifactId>appassembler-model</artifactId>
                 <version>${version.appassembler}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Logging -->
