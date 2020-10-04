@@ -59,7 +59,7 @@
         <version.carlspring.commons.io>1.1</version.carlspring.commons.io>
         <version.carlspring.commons.http>1.3</version.carlspring.commons.http>
         <version.carlspring.logback.config>1.0</version.carlspring.logback.config>
-        <version.carlspring.npm.metadata>1.0-issue-1874-SNAPSHOT</version.carlspring.npm.metadata>
+        <version.carlspring.npm.metadata>1.0-SNAPSHOT</version.carlspring.npm.metadata>
 
         <version.apache.commons.io>2.6</version.apache.commons.io>
         <version.apache.commons.compress>1.19</version.apache.commons.compress>
