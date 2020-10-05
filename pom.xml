@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-issue-1874-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -290,7 +290,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.9.1</version>
+                    <version>3.2.0</version>
                 </plugin>
 
                 <plugin>
