@@ -410,8 +410,8 @@
                                     <level>ERROR</level>
                                 </bannedPlugins>
                                 <requireMavenVersion>
-                                    <version>[3.6,)</version>
-                                    <message>Invalid Maven version, the minimum required is 3.6.x.</message>
+                                    <version>[3.6.3,)</version>
+                                    <message>Invalid Maven version, the minimum required is 3.6.3.</message>
                                 </requireMavenVersion>
                             </rules>
                             <fail>true</fail>
