@@ -1674,7 +1674,7 @@
                                 <configuration>
                                     <rules>
                                         <requireJavaVersion>
-                                            <version>[1.8,)</version>
+                                            <version>[1.9,)</version>
                                             <message>Strongbox only supports JDK 1.8.0-241, or higher.</message>
                                             <level>ERROR</level>
                                         </requireJavaVersion>
