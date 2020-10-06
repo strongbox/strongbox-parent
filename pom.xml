@@ -411,7 +411,7 @@
                                 </bannedPlugins>
                                 <requireMavenVersion>
                                     <version>[3.6,)</version>
-                                    <message>Invalid Maven version, the minimum required is 3.6.x</message>
+                                    <message>Invalid Maven version, the minimum required is 3.6.x.</message>
                                 </requireMavenVersion>
                             </rules>
                             <fail>true</fail>
