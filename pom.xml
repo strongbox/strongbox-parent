@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-issue-1872-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -145,7 +145,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.0.2</version>
 
                     <configuration>
                         <archive>
@@ -535,15 +535,15 @@
 
             <!--
             <dependency>
-                <groupId>org.jtwig</groupId>	
-                <artifactId>jtwig-spring</artifactId>	
-                <version>${version.jtwig}</version>	
-                <exclusions>	
-                    <exclusion>	
-                        <groupId>com.googlecode.concurrentlinkedhashmap</groupId>	
-                        <artifactId>concurrentlinkedhashmap-lru</artifactId>	
-                    </exclusion>	
-                </exclusions>	
+                <groupId>org.jtwig</groupId>    
+                <artifactId>jtwig-spring</artifactId>    
+                <version>${version.jtwig}</version>    
+                <exclusions>    
+                    <exclusion>    
+                        <groupId>com.googlecode.concurrentlinkedhashmap</groupId>    
+                        <artifactId>concurrentlinkedhashmap-lru</artifactId>    
+                    </exclusion>    
+                </exclusions>    
             </dependency>
             -->
             <dependency>
@@ -1620,104 +1620,69 @@
                 </plugins>
             </build>
         </profile>
-		<profile>
-			<id>java8</id>
-			<activation>
-				<jdk>1.8</jdk>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-enforcer-plugin</artifactId>
-						<version>3.0.0-M3</version>
-						<executions>
-							<execution>
-								<id>enforce-versions</id>
-								<phase>validate</phase>
-								<goals>
-									<goal>enforce</goal>
-								</goals>
-								<configuration>
-									<rules>
-										<requireJavaVersion>
-											<version>[1.8.0-241,)</version>
-											<message>Strongbox only supports JDK 11.3 and up.</</message>
-											<level>ERROR</level>
-										</requireJavaVersion>
-									</rules>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>java11</id>
-			<activation>
-				<jdk>11</jdk>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-enforcer-plugin</artifactId>
-						<version>3.0.0-M3</version>
-						<executions>
-							<execution>
-								<id>enforce-versions</id>
-								<phase>validate</phase>
-								<goals>
-									<goal>enforce</goal>
-								</goals>
-								<configuration>
-									<rules>
-										<requireJavaVersion>
-											<version>[11.3,)</version>
-											<message>Strongbox only supports JDK 11.3 and up.</message>
-											<level>ERROR</level>
-										</requireJavaVersion>
-									</rules>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>java8</id>
-			<activation>
-				<jdk>1.8</jdk>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-enforcer-plugin</artifactId>
-						<version>3.0.0-M3</version>
-						<executions>
-							<execution>
-								<id>enforce-versions</id>
-								<phase>validate</phase>
-								<goals>
-									<goal>enforce</goal>
-								</goals>
-								<configuration>
-									<rules>
-										<requireJavaVersion>
-											<version>[1.8.0-241,)</version>
-											<message>Strongbox only supports JDK 1.8.0-241 and up.</message>
-											<level>ERROR</level>
-										</requireJavaVersion>
-									</rules>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+        <profile>
+            <id>Enforce-Java-11</id>
+            <activation>
+                <jdk>11</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>3.0.0-M3</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-versions</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireJavaVersion>
+                                            <version>[11.3,)</version>
+                                            <message>Strongbox only supports JDK 11.3 and up.</message>
+                                            <level>ERROR</level>
+                                        </requireJavaVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>Enforce-Java-8</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>3.0.0-M3</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-versions</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireJavaVersion>
+                                            <version>[1.8,)</version>
+                                            <message>Strongbox only supports JDK 1.8.0-241 and up.</message>
+                                            <level>ERROR</level>
+                                        </requireJavaVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
