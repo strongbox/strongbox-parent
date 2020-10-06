@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-issue-1864-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -404,14 +404,15 @@
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <phase>validate</phase>
                         <configuration>
                             <rules>
                                 <bannedPlugins>
                                     <level>ERROR</level>
                                 </bannedPlugins>
                                 <requireMavenVersion>
-                                    <version>[3.6,)</version>
-                                    <message>Invalid Maven version, the minimum required is 3.6.x</message>
+                                    <version>[3.6.3,)</version>
+                                    <message>Invalid Maven version, the minimum required is 3.6.3.</message>
                                 </requireMavenVersion>
                             </rules>
                             <fail>true</fail>
