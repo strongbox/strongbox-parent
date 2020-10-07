@@ -32,7 +32,7 @@
         <connection>scm:git:git@github.com:strongbox/strongbox-parent.git</connection>
         <developerConnection>scm:git:git@github.com:strongbox/strongbox-parent.git</developerConnection>
     </scm>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -95,7 +95,7 @@
         <version.liquibase>3.6.3</version.liquibase>
         <version.reflections>0.9.11</version.reflections>
         <version.liquibase.slf4j>2.0.0</version.liquibase.slf4j>
-        <version.awaitility>4.0.1</version.awaitility>
+        <version.awaitility>4.0.3</version.awaitility>
         <version.asm>6.0</version.asm>
         <version.jtwig>5.87.0.RELEASE</version.jtwig>
         <version.jacoco>0.8.6</version.jacoco>
@@ -240,7 +240,7 @@
                                         <artifactId>strongbox-common-resources</artifactId>
                                         <version>${project.version}</version>
                                         <type>jar</type>
-        
+
                                         <overWrite>true</overWrite>
                                         <outputDirectory>${strongbox.home}/etc</outputDirectory>
                                         <includes>logback*xml</includes>
@@ -250,7 +250,7 @@
                                         <artifactId>strongbox-storage-api-resources</artifactId>
                                         <version>${project.version}</version>
                                         <type>jar</type>
-        
+
                                         <overWrite>true</overWrite>
                                         <outputDirectory>${strongbox.home}</outputDirectory>
                                         <includes>etc/conf/strongbox.yaml</includes>
@@ -260,7 +260,7 @@
                                         <artifactId>strongbox-common-resources</artifactId>
                                         <version>${project.version}</version>
                                         <type>jar</type>
-    
+
                                         <overWrite>true</overWrite>
                                         <outputDirectory>${strongbox.home}</outputDirectory>
                                         <includes>etc/**</includes>
@@ -286,7 +286,7 @@
                         <goals>deploy -DaltDeploymentRepository=${serverId}::default::${deployUrl}</goals>
                     </configuration>
                 </plugin>
-                
+
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -521,13 +521,13 @@
                 <version>${version.orientdb}</version>
                 <exclusions>
                     <exclusion>
-                        <!-- Excluding this transitive dependency in order 
+                        <!-- Excluding this transitive dependency in order
                             to not be exposed to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0114 -->
                         <groupId>commons-beanutils</groupId>
                         <artifactId>commons-beanutils-core</artifactId>
                     </exclusion>
                     <exclusion>
-                        <!-- Excluding this transitive dependency in order 
+                        <!-- Excluding this transitive dependency in order
                             to not be exposed to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0114 -->
                         <groupId>commons-beanutils</groupId>
                         <artifactId>commons-beanutils</artifactId>
@@ -562,19 +562,6 @@
             </dependency>
             <!-- End of OrientDB dependencies -->
 
-            <!--
-            <dependency>
-                <groupId>org.jtwig</groupId>	
-                <artifactId>jtwig-spring</artifactId>	
-                <version>${version.jtwig}</version>	
-                <exclusions>	
-                    <exclusion>	
-                        <groupId>com.googlecode.concurrentlinkedhashmap</groupId>	
-                        <artifactId>concurrentlinkedhashmap-lru</artifactId>	
-                    </exclusion>	
-                </exclusions>	
-            </dependency>
-            -->
             <dependency>
                 <groupId>org.jtwig</groupId>
                 <artifactId>jtwig-core</artifactId>
@@ -615,9 +602,9 @@
                 <artifactId>commons-io</artifactId>
                 <version>${version.apache.commons.io}</version>
             </dependency>
-            <!-- Override for transitive dependencies which bring older vulnerable 
-                versions of the commons-beanutils:commons-beanutils in order to not be exposed 
-                to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0114 -->
+            <!-- Override for transitive dependencies which bring older vulnerable
+                 versions of the commons-beanutils:commons-beanutils in order to not be exposed
+                 to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0114 -->
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
@@ -649,8 +636,8 @@
                         <artifactId>jsr311-api</artifactId>
                     </exclusion>
                     <exclusion>
-                        <!-- Excluding this transitive dependency in order 
-                            to not be exposed to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-3720 -->
+                        <!-- Excluding this transitive dependency in order
+                             to not be exposed to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-3720 -->
                         <groupId>com.fasterxml.jackson.datatype</groupId>
                         <artifactId>jackson-datatype-joda</artifactId>
                     </exclusion>
