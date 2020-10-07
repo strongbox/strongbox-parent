@@ -533,19 +533,6 @@
             </dependency>
             <!-- End of OrientDB dependencies -->
 
-            <!--
-            <dependency>
-                <groupId>org.jtwig</groupId>
-                <artifactId>jtwig-spring</artifactId>
-                <version>${version.jtwig}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.googlecode.concurrentlinkedhashmap</groupId>
-                        <artifactId>concurrentlinkedhashmap-lru</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            -->
             <dependency>
                 <groupId>org.jtwig</groupId>
                 <artifactId>jtwig-core</artifactId>
