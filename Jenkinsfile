@@ -29,7 +29,7 @@ pipeline {
         skipStagesAfterUnstable()
     }
     triggers {
-        cron(isMasterBranch ? '' : 'H * * * */6')
+        cron(isMasterBranch ? '' : 'H * * * 5')
     }
     stages {
         stage('Node') {
