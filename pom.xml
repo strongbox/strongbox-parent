@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-issue-1876-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -1608,6 +1608,11 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
+<<<<<<< HEAD
+=======
+                        <version>3.0.0-M3</version>
+
+>>>>>>> 92237cd... issue-1876: Fix snapshot version and upgrade maven enforce plugin
                         <configuration>
                             <rules>
                                 <dependencyConvergence/>
