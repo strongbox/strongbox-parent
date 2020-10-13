@@ -1772,7 +1772,7 @@
                 </plugins>
             </build>
         </profile>
-	    <profile>
+        <profile>
             <id>enforce-jdk11</id>
             <activation>
                 <jdk>[11.3,12)</jdk>
@@ -1836,7 +1836,7 @@
         </profile>
         <profile>
             <id>enforce-if-less-than-jdk8</id>
-			<activation>
+            <activation>
                 <jdk>(,1.8)</jdk>
             </activation>
             <build>
@@ -1867,7 +1867,7 @@
         </profile>
         <profile>
             <id>enforce-if-greater-than-jdk8-and-less-than-jdk11</id>
-			<activation>
+            <activation>
                 <jdk>[1.9, 11.3)</jdk>
             </activation>
             <build>
@@ -1898,7 +1898,7 @@
         </profile>
         <profile>
             <id>enforce-if-greater-than-jdk11</id>
-			<activation>
+            <activation>
                 <jdk>[12,)</jdk>
             </activation>
             <build>
