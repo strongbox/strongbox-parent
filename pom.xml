@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-issue-1873-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -64,7 +64,7 @@
         <version.apache.commons.io>2.6</version.apache.commons.io>
         <version.apache.commons.compress>1.19</version.apache.commons.compress>
         <version.apache.directory>1.5.5</version.apache.directory>
-        <version.appassembler>2.0.0</version.appassembler>
+        <version.appassembler>2.1.0</version.appassembler>
         <version.groovy>2.4.7</version.groovy>
         <version.guava>27.0.1-jre</version.guava>
         <version.hamcrest>1.3</version.hamcrest>
