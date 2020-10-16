@@ -1660,7 +1660,7 @@
                                     <rules>
                                         <requireJavaVersion>
                                             <version>[11.3,)</version>
-                                            <message>JDK 11 is not currently supported. Strongbox will only support JDK 11.3, or higher, in the future.</message>
+                                            <message>Strongbox only supports JDK 11.3, or higher.</message>
                                             <level>ERROR</level>
                                         </requireJavaVersion>
                                     </rules>
