@@ -64,7 +64,7 @@
         <version.apache.commons.io>2.6</version.apache.commons.io>
         <version.apache.commons.compress>1.19</version.apache.commons.compress>
         <version.apache.directory>1.5.5</version.apache.directory>
-        <version.appassembler>2.0.0</version.appassembler>
+        <version.appassembler>2.1.0</version.appassembler>
         <version.groovy>2.4.7</version.groovy>
         <version.guava>27.0.1-jre</version.guava>
         <version.hamcrest>2.2</version.hamcrest>
