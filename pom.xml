@@ -354,7 +354,7 @@
                 <plugin>
                     <groupId>org.jsonschema2pojo</groupId>
                     <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                    <version>0.5.1</version>
+                    <version>1.0.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.antlr</groupId>
@@ -916,7 +916,7 @@
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
                 <version>${version.groovy}</version>
-                 <exclusions>
+                <exclusions>
                     <exclusion>
                         <groupId>org.codehaus.groovy</groupId>
                         <artifactId>groovy-testng</artifactId>
@@ -1409,7 +1409,7 @@
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
-             </exclusions>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
