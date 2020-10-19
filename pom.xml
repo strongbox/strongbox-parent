@@ -63,7 +63,6 @@
 
         <version.apache.commons.io>2.6</version.apache.commons.io>
         <version.apache.commons.compress>1.19</version.apache.commons.compress>
-        <version.apache.directory>1.5.5</version.apache.directory>
         <version.appassembler>2.1.0</version.appassembler>
         <version.groovy>2.4.7</version.groovy>
         <version.guava>27.0.1-jre</version.guava>
@@ -606,6 +605,12 @@
                  versions of the commons-beanutils:commons-beanutils in order to not be exposed
                  to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0114 -->
             <dependency>
+                <groupId>com.unboundid</groupId>
+                <artifactId>unboundid-ldapsdk</artifactId>
+                <version>5.1.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>1.9.3</version>
@@ -1039,30 +1044,7 @@
                 <version>2.4.4</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.directory.server</groupId>
-                <artifactId>apacheds-core</artifactId>
-                <version>${version.apache.directory}</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.directory.server</groupId>
-                <artifactId>apacheds-protocol-ldap</artifactId>
-                <version>${version.apache.directory}</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+
 
             <dependency>
                 <groupId>org.javatuples</groupId>
