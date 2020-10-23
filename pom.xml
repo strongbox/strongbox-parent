@@ -400,6 +400,47 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <rules>
+                                <bannedPlugins>
+                                    <level>ERROR</level>
+                                </bannedPlugins>
+                                <requireMavenVersion>
+                                    <version>[3.6.3,)</version>
+                                    <message>Invalid Maven version, the minimum required is 3.6.3.</message>
+                                </requireMavenVersion>
+                            </rules>
+                            <fail>true</fail>
+                            <failFast>true</failFast>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                     <version>[1.8.0-241,1.9),[11.3, 12)</version>
+                                    <message>Invalid JDK version, minimum required is 1.8.0_241 for JDK 8 or 11.3 for JDK 11.</message>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+				</executions>
+            </plugin>
         </plugins>
     </build>
 
