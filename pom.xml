@@ -440,9 +440,22 @@
                             <failFast>true</failFast>
                         </configuration>
                     </execution>
-                </executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                     <version>[1.8.0-241,1.9)</version>
+                                    <message>Invalid JDK version, minimum required is 1.8.0_241.</message>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+				</executions>
             </plugin>
-
         </plugins>
     </build>
 
@@ -1766,161 +1779,6 @@
                                 <goals>
                                     <goal>enforce</goal>
                                 </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>enforce-jdk11</id>
-            <activation>
-                <jdk>[11.3,12)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-versions</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireJavaVersion>
-                                            <version>[11.3,)</version>
-                                            <message>Strongbox only supports JDK 11.3, or higher.</message>
-                                            <level>ERROR</level>
-                                        </requireJavaVersion>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>enforce-jdk8</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-versions</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireJavaVersion>
-                                            <version>[1.8.0-241,)</version>
-                                            <message>Strongbox only supports JDK 1.8.0_241, or higher.</message>
-                                            <level>ERROR</level>
-                                        </requireJavaVersion>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>enforce-if-less-than-jdk8</id>
-            <activation>
-                <jdk>(,1.8)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-versions</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireJavaVersion>
-                                            <version>[1.8.0-241,1.9), [11.3,12)</version>
-                                            <message>Strongbox only supports JDK 8 (and JDK 11 in the future).</message>
-                                            <level>ERROR</level>
-                                        </requireJavaVersion>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>enforce-if-greater-than-jdk8-and-less-than-jdk11</id>
-            <activation>
-                <jdk>[1.9, 11.3)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-versions</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireJavaVersion>
-                                            <version>[1.8.0-241,1.9), [11.3,12)</version>
-                                            <message>Strongbox only supports JDK 8 (and JDK 11 in the future).</message>
-                                            <level>ERROR</level>
-                                        </requireJavaVersion>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>enforce-if-greater-than-jdk11</id>
-            <activation>
-                <jdk>[12,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-versions</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireJavaVersion>
-                                            <version>[1.8.0-241,1.9), [11.3,12)</version>
-                                            <message>Strongbox only supports JDK 8 (and JDK 11 in the future).</message>
-                                            <level>ERROR</level>
-                                        </requireJavaVersion>
-                                    </rules>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
