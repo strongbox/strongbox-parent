@@ -191,7 +191,6 @@
                             <logging.dir>${strongbox.vault}/logs</logging.dir>
                             <logging.config>${project.build.directory}/strongbox/etc/logback-spring.xml</logging.config>
                             <java.io.tmpdir>${strongbox.vault}/tmp</java.io.tmpdir>
-                            <ehcache.disk.store.dir>${project.build.directory}/strongbox/cache</ehcache.disk.store.dir>
                             <strongbox.nuget.download.feed>false</strongbox.nuget.download.feed>
                             <strongbox.download.indexes>false</strongbox.download.indexes>
                             <strongbox.npm.remote.changes.enabled>false</strongbox.npm.remote.changes.enabled>
@@ -224,7 +223,6 @@
                             <logging.config>${project.build.directory}/strongbox/etc/logback-spring.xml</logging.config>
                             <logging.debug>true</logging.debug>
                             <java.io.tmpdir>${strongbox.vault}/tmp</java.io.tmpdir>
-                            <ehcache.disk.store.dir>${project.build.directory}/strongbox/cache</ehcache.disk.store.dir>
                             <strongbox.nuget.download.feed>false</strongbox.nuget.download.feed>
                             <strongbox.download.indexes>false</strongbox.download.indexes>
                         </systemPropertyVariables>
@@ -461,12 +459,6 @@
                 <groupId>org.carlspring.strongbox</groupId>
                 <artifactId>npm-metadata-jackson</artifactId>
                 <version>${version.carlspring.npm.metadata}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache-core</artifactId>
-                <version>2.6.11</version>
             </dependency>
 
             <dependency>
