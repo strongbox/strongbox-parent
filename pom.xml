@@ -312,6 +312,14 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>3.2.0</version>
+                    <executions>
+                        <execution>
+                            <id>maven-version</id>
+                            <goals>
+                                <goal>maven-version</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
@@ -434,7 +442,7 @@
                                 <requireMavenVersion>
                                     <version>[3.6.3,)</version>
                                     <message>
-                                        ${line.separator} You are using an unsupported Maven version! ${line.separator} See https://strongbox.github.io/developer-guide/getting-started.html ${line.separator}
+                                        ${line.separator} Maven ${maven.version} is not a supported version! ${line.separator} See https://strongbox.github.io/developer-guide/getting-started.html ${line.separator}
                                     </message>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
