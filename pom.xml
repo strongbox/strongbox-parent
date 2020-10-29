@@ -627,19 +627,19 @@
                 <artifactId>commons-io</artifactId>
                 <version>${version.apache.commons.io}</version>
             </dependency>
-            <!-- Override for transitive dependencies which bring older vulnerable
-                 versions of the commons-beanutils:commons-beanutils in order to not be exposed
-                 to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0114 -->
             <dependency>
                 <groupId>com.unboundid</groupId>
                 <artifactId>unboundid-ldapsdk</artifactId>
                 <version>5.1.1</version>
                 <scope>test</scope>
             </dependency>
+            <!-- Override for transitive dependencies which bring older vulnerable
+                 versions of the commons-beanutils:commons-beanutils in order to not be exposed
+                 to: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0114 -->
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.9.3</version>
+                <version>1.9.4</version>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-collections</groupId>
