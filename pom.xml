@@ -408,7 +408,7 @@
                 <version>3.0.0-M3</version>
                 <executions>
                     <execution>
-                        <id>enforce-maven</id>
+                        <id>enforce-jdk-and-maven-versions</id>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
@@ -420,8 +420,18 @@
                                 </bannedPlugins>
                                 <requireMavenVersion>
                                     <version>[3.6.3,)</version>
-                                    <message>Invalid Maven version, the minimum required is 3.6.3.</message>
+                                    <message>
+                                        ${line.separator} Maven ${maven.version} is not a supported version! ${line.separator} See https://strongbox.github.io/developer-guide/getting-started.html ${line.separator}
+                                    </message>
                                 </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <!-- There are issues with JDK 1.8 <= 192 related to LetsEncrypt CA certificates -->
+                                    <!-- Therefore it is absolutely mandatory for JDK 1.8 to be above b192 -->
+                                    <version>[1.8.0-222,1.9),[11.1,12)</version>
+                                    <message>
+                                        ${line.separator} ${java.vendor.version} ${java.runtime.version} is not a supported JDK version! ${line.separator} See https://strongbox.github.io/developer-guide/getting-started.html ${line.separator}
+                                    </message>
+                                </requireJavaVersion>
                             </rules>
                             <fail>true</fail>
                             <failFast>true</failFast>
