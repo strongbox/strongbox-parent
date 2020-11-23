@@ -443,7 +443,7 @@
                                     <!-- Therefore it is absolutely mandatory for JDK 1.8 to be above b192 -->
                                     <version>[1.8.0-222,1.9),[11.1,12)</version>
                                     <message>
-                                        ${line.separator} ${java.vendor.version} ${java.runtime.version} is not a supported JDK version! ${line.separator} See https://strongbox.github.io/developer-guide/getting-started.html ${line.separator}
+                                        ${line.separator} ${java.vendor} ${java.runtime.version} is not a supported JDK version! ${line.separator} See https://strongbox.github.io/developer-guide/getting-started.html ${line.separator}
                                     </message>
                                 </requireJavaVersion>
                             </rules>
