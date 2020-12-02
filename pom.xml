@@ -87,7 +87,7 @@
         <version.servlet.api>3.1.0</version.servlet.api>
         <version.slf4j>1.7.30</version.slf4j>
         <version.spring.boot>2.2.4.RELEASE</version.spring.boot>
-        <version.rest.assured>4.3.0</version.rest.assured>
+        <version.rest.assured>4.3.1</version.rest.assured>
         <version.hibernate.validator>6.1.0.Final</version.hibernate.validator>
         <version.glassfish.javax.el>3.0.1-b08</version.glassfish.javax.el>
         <version.antlr>4.7.1</version.antlr>
@@ -1011,58 +1011,6 @@
                 <version>${version.rest.assured}</version>
                 <scope>test</scope>
             </dependency>
-        
-            <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>json-path</artifactId>
-                <version>${version.rest.assured}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-xml</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-json</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        
-            <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>xml-path</artifactId>
-                <version>${version.rest.assured}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-xml</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>activation</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sun.xml.bind</groupId>
-                        <artifactId>jaxb-osgi</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.ccil.cowan.tagsoup</groupId>
-                        <artifactId>tagsoup</artifactId>
-                    </exclusion>
-                </exclusions>
-                </dependency>
 
             <dependency>
                 <groupId>io.rest-assured</groupId>
