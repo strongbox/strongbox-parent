@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-PR-64-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -64,7 +64,7 @@
         <version.apache.commons.io>2.8.0</version.apache.commons.io>
         <version.apache.commons.compress>1.19</version.apache.commons.compress>
         <version.appassembler>2.1.0</version.appassembler>
-        <version.groovy>2.4.7</version.groovy>
+        <version.groovy>3.0.2</version.groovy>
         <version.guava>27.0.1-jre</version.guava>
         <version.hamcrest>2.2</version.hamcrest>
         <version.hazelcast>3.10.2</version.hazelcast>
@@ -87,7 +87,7 @@
         <version.servlet.api>3.1.0</version.servlet.api>
         <version.slf4j>1.7.30</version.slf4j>
         <version.spring.boot>2.2.4.RELEASE</version.spring.boot>
-        <version.rest.assured>3.3.0</version.rest.assured>
+        <version.rest.assured>4.3.1</version.rest.assured>
         <version.hibernate.validator>6.1.0.Final</version.hibernate.validator>
         <version.glassfish.javax.el>3.0.1-b08</version.glassfish.javax.el>
         <version.antlr>4.7.1</version.antlr>
@@ -620,8 +620,13 @@
                         <groupId>org.codehaus.groovy</groupId>
                         <artifactId>groovy-json</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>io.rest-assured</groupId>
+                        <artifactId>json-path</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
+
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -943,20 +948,22 @@
                 <artifactId>aspectjweaver</artifactId>
                 <version>1.9.4</version>
             </dependency>
+
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-all</artifactId>
+                <artifactId>groovy</artifactId>
                 <version>${version.groovy}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-testng</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.testng</groupId>
-                        <artifactId>testng</artifactId>
-                    </exclusion>
-                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-xml</artifactId>
+                <version>${version.groovy}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-json</artifactId>
+                <version>${version.groovy}</version>
             </dependency>
 
             <dependency>
@@ -1003,6 +1010,64 @@
                 <artifactId>rest-assured</artifactId>
                 <version>${version.rest.assured}</version>
                 <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${version.rest.assured}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-xml</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-json</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>xml-path</artifactId>
+                <version>${version.rest.assured}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-xml</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-osgi</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.ccil.cowan.tagsoup</groupId>
+                        <artifactId>tagsoup</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -1065,12 +1130,29 @@
             </dependency>
 
             <dependency>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy</artifactId>
-                <version>2.4.4</version>
+                <groupId>org.apache.directory.server</groupId>
+                <artifactId>apacheds-core</artifactId>
+                <version>${version.apache.directory}</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
-
-
+            <dependency>
+                <groupId>org.apache.directory.server</groupId>
+                <artifactId>apacheds-protocol-ldap</artifactId>
+                <version>${version.apache.directory}</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
             <dependency>
                 <groupId>org.javatuples</groupId>
@@ -1417,7 +1499,15 @@
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
-            </exclusions>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>json-path</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>xml-path</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
