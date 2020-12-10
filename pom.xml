@@ -1010,6 +1010,12 @@
                 <artifactId>rest-assured</artifactId>
                 <version>${version.rest.assured}</version>
                 <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
