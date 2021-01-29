@@ -6,7 +6,7 @@
 
     <groupId>org.carlspring.strongbox</groupId>
     <artifactId>strongbox-parent</artifactId>
-    <version>1.0-PR-62-SNAPSHOT</version>
+    <version>1.0-issues-1649-steve-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Strongbox: Parent</name>
@@ -87,7 +87,9 @@
         <version.servlet.api>3.1.0</version.servlet.api>
         <version.annotation.api>1.3.2</version.annotation.api>
         <version.slf4j>1.7.30</version.slf4j>
-        <version.spring.boot>2.2.4.RELEASE</version.spring.boot>
+        <!--<version.spring.boot>2.4.2</version.spring.boot>-->
+        <version.spring.boot>2.3.6.RELEASE</version.spring.boot>
+        <!--<version.spring.boot>2.2.4.RELEASE</version.spring.boot>-->
         <version.rest.assured>4.2.0</version.rest.assured>
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
         <version.glassfish.javax.el>3.0.1-b08</version.glassfish.javax.el>
