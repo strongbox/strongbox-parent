@@ -74,7 +74,7 @@
         <version.jsr305>3.0.2</version.jsr305>
         <version.findbugs.annotations>3.0.1</version.findbugs.annotations>
         <version.junit.jupiter>5.7.0</version.junit.jupiter>
-        <version.jersey>2.32</version.jersey>
+        <version.jersey>3.0.1</version.jersey>
         <version.jetty>9.4.33.v20201020</version.jetty>
         <version.jna>4.5.2</version.jna>
         <version.lucene>4.8.1</version.lucene>
