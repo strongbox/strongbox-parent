@@ -88,7 +88,7 @@
         <version.slf4j>1.7.30</version.slf4j>
         <version.spring.boot>2.2.4.RELEASE</version.spring.boot>
         <version.rest.assured>3.3.0</version.rest.assured>
-        <version.hibernate.validator>6.1.0.Final</version.hibernate.validator>
+        <version.hibernate.validator>6.1.5.Final</version.hibernate.validator>
         <version.glassfish.javax.el>3.0.1-b08</version.glassfish.javax.el>
         <version.antlr>4.7.1</version.antlr>
         <version.liquibase>3.6.3</version.liquibase>
